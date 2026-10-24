@@ -6,6 +6,15 @@ const Cart = ({cart,setCart}) => {
         setCart(updateitems)
 
     }
+
+    function handleBuyNow(product) {
+  const phone = "918106950515";
+  const message = `I want to buy ${product.name} for ₹${product.price}`;
+
+  window.open(
+    `https://wa.me/${phone}?text=${encodeURIComponent(message)}`
+  );
+}
   return (
     <div>
           <div className='row align-items-center gap-5'>
@@ -16,6 +25,8 @@ const Cart = ({cart,setCart}) => {
               <h4 className="card-text">{v.name}</h4>
               <p className="card-text">{v.price}</p>
               <button className="bg-danger" onClick={()=>handleClick(v)}>Delete Item</button>
+
+              <button className='bg-success' onClick={()=>handleBuyNow(v)}>BuyNow</button>
              
             </div>
 

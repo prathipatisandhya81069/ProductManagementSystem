@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 
 const Home = ({cart,setCart,setItems}) => {
@@ -93,6 +93,7 @@ const Home = ({cart,setCart,setItems}) => {
     }
   ];
   const navigate=useNavigate();
+  const [search,setSearch]=useState('')
   function handleClick(product){
     setCart([...cart,product]);
   
@@ -100,14 +101,19 @@ const Home = ({cart,setCart,setItems}) => {
 
   }
 
-  function handleDetails(item1){
+ function handleDetails(item1){
     setItems(item1);
     navigate("/details")
   }
+
+  const filterdata=foodItems.filter((item)=>(
+    item.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+  ))
   return (
     <div>
+      <input type="text" placeholder='search product' value={search} onChange={(e)=>setSearch(e.target.value)}/>
       <div className='row align-items-center gap-5'>
-        {foodItems.map((v, i) => (
+        {filterdata.map((v, i) => (
           <div key={i} className='col'>
             <div className="card ">
               <img src={v.img} alt="" className='card-img-top' style={{ width: "300px",height:"200px" }} />
